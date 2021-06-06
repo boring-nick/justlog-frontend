@@ -5,7 +5,7 @@
 </script>
 
 <!-- As a heading -->
-<header class="navbar navbar-dark bg-dark">
+<header class="navbar navbar-dark bg-dark mb-2">
 	<div class="container-fluid">
 		<span class="navbar-brand mb-0 h1">justlog</span>
 	</div>

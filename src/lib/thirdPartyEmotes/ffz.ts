@@ -60,14 +60,14 @@ export function getEmoteUrl(id: string, size: 1 | 2 | 3) {
 
 export async function getFFZGlobal(): Promise<FFZGlobalResponse> {
     const response = await fetch(`${BASE_URL}/set/global`);
-    const json: FFZGlobalResponse = await response.json();
-    return json;
+
+    return await response.json();
 }
 
 export async function getFFZChannel(userId: number): Promise<FFZRoomResponse> {
     const response = await fetch(`${BASE_URL}/room/id/${userId}`);
-    const json: FFZRoomResponse = await response.json();
-    return json;
+    
+    return await response.json();
 }
 
 export async function getGlobal(): Promise<Array<Emote>> {

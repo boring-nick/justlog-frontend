@@ -6,7 +6,7 @@
 </script>
 
 <div class="bg-dark p-2 border" {...$$restProps}>
-    {#each messages as message (message.id)}
+    {#each messages as message}
     <ChatLine {message} />
     {/each}
 </div>

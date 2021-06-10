@@ -73,7 +73,7 @@ export class Justlog {
         return await this.fetch<JustlogChanngelsResponse>("channels");
     }
 
-    async list(query: JustlogAvailableLogsQuery): Promise<JustlogAvailableLogsResponse> {
-        return await this.fetch<JustlogAvailableLogsResponse>("?" + new URLSearchParams(query as Record<string, string>).toString());
+    async listLogs(query: JustlogAvailableLogsQuery): Promise<JustlogAvailableLogsResponse> {
+        return await this.fetch<JustlogAvailableLogsResponse>("list?" + new URLSearchParams(query as Record<string, string>).toString());
     }
 }

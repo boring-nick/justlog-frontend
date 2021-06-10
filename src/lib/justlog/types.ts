@@ -28,7 +28,7 @@ export interface JustlogAvailableLog {
 
 export interface JustlogAvailableLogsQuery {
     channel?: string;
-    username?: string;
+    user?: string;
     channelid?: string;
     userid?: string;
 }

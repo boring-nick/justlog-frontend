@@ -54,7 +54,7 @@
                 const [ start, end ] = positions[0].split("-");
 
                 const name = message.text.slice(parseInt(start), parseInt(end) + 1);
-                console.log(name);
+
                 emotes.push({
                     name,
                     url: `https://static-cdn.jtvnw.net/emoticons/v1/${id}/4.0`
@@ -74,4 +74,4 @@
 <ChatEmote name={block.name} url={block.url} />
 {/if}
 {/each}
-{JSON.stringify(message.tags?.badges)}
+<!-- TODO: {JSON.stringify(message.tags?.badges)} -->

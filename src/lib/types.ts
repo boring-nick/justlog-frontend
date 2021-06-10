@@ -7,5 +7,15 @@ export interface Emote {
 
 export interface Filters {
     channel: JustlogChannel;
-    username: string
+    username: string;
+}
+
+export interface Year {
+    number: number;
+    months: Array<Month>;
+}
+
+export interface Month {
+    number: number;
+    days: Array<number>;
 }

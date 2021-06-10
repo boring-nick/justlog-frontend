@@ -79,17 +79,19 @@ export function createLocalStorage<T>(key: string, value: T): Writable<T> {
     }
 }
 
-export function createAwaiter<T>(promise: Promise<T>) {
-	const { subscribe, set } = writable<{isLoading: boolean, error: Error, data: T}>({ isLoading: true, error: null, data: null });
+export function createAwaiter<T>(promise?: Promise<T>) {
+	const { subscribe, set } = writable<{isLoading: boolean, error: Error, data: T}>({ isLoading: false, error: null, data: null });
 	
-	setPromise(promise);
+	promise && setPromise(promise);
 
 	function setPromise(promise: Promise<T>) {
+		set({ isLoading: true, error: null, data: null })
 		promise.then(data => set({ isLoading: false, error: null, data }), error => set({ isLoading: false, error, data: null }))
 	}
 
 	return {
 		subscribe,
-		set: setPromise
+		set,
+		setPromise
 	};
 }

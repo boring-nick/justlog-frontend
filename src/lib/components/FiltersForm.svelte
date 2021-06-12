@@ -23,7 +23,7 @@
 </script>
 
 <form {...$$restProps} on:submit|preventDefault={onSubmit}>
-    <div class="input-group mb-2">
+    <div class="input-group">
         <span class="input-group-text">#</span>
         <input bind:value={input.channel} type="text" class="form-control" list="channels" placeholder="Channel" aria-label="Channel">
         <datalist id="channels">

@@ -1,4 +1,4 @@
-import type { JustlogAvailableLogsResponse, JustlogChanngelsResponse, JustlogMessagesResponse, JustlogLogQuery, JustlogAvailableLogsQuery } from "./types";
+import type { JustlogAvailableLogsResponse, JustlogChannelsResponse, JustlogMessagesResponse, JustlogLogQuery, JustlogAvailableLogsQuery } from "./types";
 export * from "./types";
 
 export class Justlog {
@@ -69,8 +69,8 @@ export class Justlog {
         return await this._getLogs(channel, query, user, 0, 0, true);
     }
 
-    async getChannels(): Promise<JustlogChanngelsResponse> {
-        return await this.fetch<JustlogChanngelsResponse>("channels");
+    async getChannels(): Promise<JustlogChannelsResponse> {
+        return await this.fetch<JustlogChannelsResponse>("channels");
     }
 
     async listLogs(query: JustlogAvailableLogsQuery): Promise<JustlogAvailableLogsResponse> {

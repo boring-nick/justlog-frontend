@@ -25,6 +25,7 @@
     "svelte": "^3.34.0",
     "svelte-check": "^2.0.0",
     "svelte-preprocess": "^4.0.0",
+    "svelte-virtual-scroll-list": "^1.0.8",
     "tslib": "^2.0.0",
     "typescript": "^4.0.0"
   },

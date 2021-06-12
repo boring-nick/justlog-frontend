@@ -42,7 +42,7 @@ export interface JustlogChannel {
     userID: string;
 }
 
-export interface JustlogChanngelsResponse {
+export interface JustlogChannelsResponse {
     channels: Array<JustlogChannel>;
 }
 

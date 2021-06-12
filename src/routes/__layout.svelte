@@ -1,7 +1,6 @@
 <script lang="ts">
 	import 'bootstrap-dark-5/dist/css/bootstrap-night.min.css';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
-
 </script>
 
 <header class="navbar navbar-dark bg-dark mb-2">

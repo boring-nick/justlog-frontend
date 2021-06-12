@@ -3,9 +3,9 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import FiltersForm from '$lib/components/FiltersForm.svelte';
 	import DatePicker from '$lib/components/DatePicker.svelte';
-	import type { JustlogChannel, JustlogChannelsResponse, JustlogMessage } from '$lib/justlog';
+	import type { JustlogChannelsResponse, JustlogMessage } from '$lib/justlog';
 	import { Justlog } from '$lib/justlog';
-	import type { Year, Month } from '$lib/types';
+	import type { Year } from '$lib/types';
 	import { createAwaiter, serverBaseUrl } from '$lib/stores';
 	import type { Filters } from '$lib/types';
 
@@ -25,9 +25,9 @@
 	} else if (justlog) {
 		listData.set({ data: null, isLoading: false, error: null });
 	}
-    $: if (justlog) {
-        channels.setPromise(justlog.getChannels());
-    }
+	$: if (justlog) {
+		channels.setPromise(justlog.getChannels());
+	}
 
 	let selected: {
 		year: number;

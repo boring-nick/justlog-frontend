@@ -1,13 +1,13 @@
 <script>
-    export let name = "";
-    export let url = "";
+	export let name = '';
+	export let url = '';
 </script>
 
-<img class="emote" src={url} alt={name}>
+<img class="emote" src={url} alt={name} />
 
 <style>
-    .emote {
-        height: 40px;
-        padding: 5px;
-    }
+	.emote {
+		height: 40px;
+		padding: 5px;
+	}
 </style>

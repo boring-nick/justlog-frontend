@@ -26,7 +26,7 @@ export interface BttvUserResponse {
 	sharedEmotes: Array<BttvSharedEmote>;
 }
 
-export function getEmoteUrl(id: string, size: 1 | 2 | 3) {
+export function getEmoteUrl(id: string, size: 1 | 2 | 3): string {
 	return `https://cdn.betterttv.net/emote/${id}/${size}x`;
 }
 

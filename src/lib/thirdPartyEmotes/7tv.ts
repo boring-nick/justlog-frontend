@@ -1,53 +1,48 @@
 import type { Emote } from '$lib/types';
 
-const PROXY_BASE = 'https://7tv.kkx.one';
-
-export interface SevenTVUserResponse {
-	data: SevenTVUserData;
-}
-
-export interface SevenTVUserData {
-	user: SevenTVUser;
-}
-
-export interface SevenTVUser {
-	emotes: SevenTVEmote[];
-}
+const API_BASE = 'https://api.7tv.app/v2';
 
 export interface SevenTVEmote {
 	id: string;
 	name: string;
+	owner: SevenTVUser;
 	visibility: number;
 	mime: string;
-	owner: Owner;
+	status: number;
+	width: Array<number>;
+	height: Array<number>;
+	urls: Array<[string, string]>;
 }
 
-export interface Owner {
+export interface SevenTVUser {
 	id: string;
-	display_name: string;
-	login: string;
 	twitch_id: string;
-}
-export interface SevenTVSearchResponse {
-	data: SevenTVSearchData;
-}
-
-export interface SevenTVSearchData {
-	search_emotes: SevenTVEmote[];
+	login: string;
+	display_name: string;
+	role: SevenTVRole;
+	emote_aliases: SevenTVEmoteAliases;
 }
 
-export function getEmoteUrl(id: string, size: 1 | 2 | 3) {
-	return `https://cdn.7tv.app/emote/${id}/${size}x`;
+export interface SevenTVRole {
+	id: string;
+	name: string;
+	position: number;
+	color: number;
+	allowed: number;
+	denied: number;
+	default: boolean;
 }
 
-export async function getSevenTVGlobal(): Promise<SevenTVSearchResponse> {
-	const response = await fetch(`${PROXY_BASE}/global`);
+export type SevenTVEmoteAliases = { [id: string]: string };
+
+export async function getSevenTVGlobal(): Promise<Array<SevenTVEmote>> {
+	const response = await fetch(`${API_BASE}/emotes/global`);
 
 	return await response.json();
 }
 
-export async function getSevenTVChannel(username: string): Promise<SevenTVUserResponse> {
-	const response = await fetch(`${PROXY_BASE}/channel/${username}`);
+export async function getSevenTVChannel(username: string): Promise<Array<SevenTVEmote>> {
+	const response = await fetch(`${API_BASE}/users/${username}/emotes`);
 
 	return await response.json();
 }
@@ -55,21 +50,17 @@ export async function getSevenTVChannel(username: string): Promise<SevenTVUserRe
 export async function getGlobal(): Promise<Array<Emote>> {
 	const sevenTvGlobal = await getSevenTVGlobal();
 
-	if (!sevenTvGlobal?.data?.search_emotes) return [];
-
-	return sevenTvGlobal.data.search_emotes.map((emote) => ({
+	return sevenTvGlobal.map((emote) => ({
 		name: emote.name,
-		url: getEmoteUrl(emote.id, 3)
+		url: emote.urls[3][1] || emote.urls[2][1] || emote.urls[1][1] || emote.urls[0][1]
 	}));
 }
 
 export async function getChannel(username: string): Promise<Array<Emote>> {
 	const sevenTvChannel = await getSevenTVChannel(username);
 
-	if (!sevenTvChannel?.data?.user?.emotes) return [];
-
-	return sevenTvChannel.data.user.emotes.map((emote) => ({
+	return sevenTvChannel.map((emote) => ({
 		name: emote.name,
-		url: getEmoteUrl(emote.id, 3)
+		url: emote.urls[3][1] || emote.urls[2][1] || emote.urls[1][1] || emote.urls[0][1]
 	}));
 }

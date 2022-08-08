@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Year, Month } from '$lib/types';
 
+	// TODO: This is kinda broken, maybe replace with text inputs with datalists for full channel logs
 	export let years: Array<Year> = [];
 	export let showDays = false;
 

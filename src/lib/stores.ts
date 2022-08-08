@@ -23,7 +23,7 @@ export function fetchOnce<T>(
 	browserOnly = false
 ): { subscribe: (handler: HandlerType<T>) => () => void } {
 	let _value = initialValue;
-	const subs = [];
+	const subs: Array<HandlerType<T>> = [];
 
 	function subscribe(handler: HandlerType<T>): () => void {
 		subs.push(handler);
@@ -33,12 +33,12 @@ export function fetchOnce<T>(
 			const t = promiseFn();
 			if (t instanceof Promise) {
 				t.then((data: T) => {
-					set({ isLoading: false, error: null, data });
+					set({ isLoading: false, error: undefined, data });
 				}).catch((e: Error) => {
-					set({ isLoading: false, error: e, data: null });
+					set({ isLoading: false, error: e, data: undefined });
 				});
 			} else {
-				set({ isLoading: false, error: null, data: t });
+				set({ isLoading: false, error: undefined, data: t });
 			}
 		}
 
@@ -85,19 +85,19 @@ export function createLocalStorage<T>(key: string, value: T): Writable<T> {
 }
 
 export function createAwaiter<T>(promise?: Promise<T>) {
-	const { subscribe, set } = writable<{ isLoading: boolean; error: Error; data: T }>({
+	const { subscribe, set } = writable<{ isLoading: boolean; error?: Error; data?: T }>({
 		isLoading: false,
-		error: null,
-		data: null
+		error: undefined,
+		data: undefined
 	});
 
 	promise && setPromise(promise);
 
 	function setPromise(promise: Promise<T>) {
-		set({ isLoading: true, error: null, data: null });
+		set({ isLoading: true, error: undefined, data: undefined });
 		promise.then(
-			(data) => set({ isLoading: false, error: null, data }),
-			(error) => set({ isLoading: false, error, data: null })
+			(data) => set({ isLoading: false, error: undefined, data }),
+			(error) => set({ isLoading: false, error, data: undefined })
 		);
 	}
 

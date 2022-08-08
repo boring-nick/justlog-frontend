@@ -20,7 +20,7 @@
 	$: if (justlog && filters?.channel && (!filters?.username || (selected && filters?.username))) {
 		logData.setPromise(getLogs(filters));
 	}
-	$: if (justlog && filters?.channel && filters?.username) {
+	$: if (justlog && filters?.channel) {
 		listData.setPromise(listLogs(filters));
 	} else if (justlog) {
 		listData.set({ data: null, isLoading: false, error: null });

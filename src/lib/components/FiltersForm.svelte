@@ -32,6 +32,7 @@
 			list="channels"
 			placeholder="Channel"
 			aria-label="Channel"
+			on:keypress={e => e.key === "Enter" && onSubmit()}
 		/>
 		<datalist id="channels">
 			{#each channels as channel (channel)}

@@ -20,7 +20,7 @@ export class Justlog {
 		if (!init) init = {};
 		if (this.token && init) {
 			if (!init.headers) init.headers = {};
-			init.headers['X-Api-Key'] = `Bearer ${this.token}`;
+			(init.headers as { [key: string]: string })['X-Api-Key'] = `Bearer ${this.token}`;
 		}
 
 		const response = await fetch(`${this.base}/${path}`, init);

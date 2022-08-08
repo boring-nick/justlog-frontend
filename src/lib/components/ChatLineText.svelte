@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ChatEmote from '$lib/components/ChatEmote.svelte';
 	import type { JustlogMessage } from '$lib/justlog';
 	import { thirdPartyGlobalEmotes } from '$lib/stores';
 	import { contextKey } from '$lib/thirdPartyEmotes';
@@ -12,29 +11,42 @@
 
 	let blocks: Array<Emote | string> = [];
 
+	const TYPE = {
+		EMOTE: 0,
+		URL: 1
+	};
+
 	function createBlocks(text: string, emotes: Array<Emote>) {
-		let blocks: Array<Emote | string> = [];
+		let blocks: Array<any> = [];
 		let words = text.split(' ');
 		let part = '';
 
 		for (const word of words) {
 			let emote = emotes.find((e) => e.name === word);
-			if (part) {
-				if (emote) {
+			if (emote) {
+				if (part) {
 					blocks.push(part);
 					part = '';
-					blocks.push(emote);
-				} else {
+				}
+				blocks.push([TYPE.EMOTE, emote]);
+			}
+			else if (word.startsWith("http://") || word.startsWith("https://")) {
+				if (part) {
+					blocks.push(part);
+					part = '';
+				}
+				blocks.push([TYPE.URL, word]);
+			}
+			else {
+				if (part) {
 					part += ' ' + word;
 				}
-			} else {
-				if (emote) {
-					blocks.push(emote);
-				} else {
+				else {
 					part = word;
 				}
 			}
 		}
+
 		if (part) blocks.push(part);
 
 		return blocks;
@@ -68,11 +80,24 @@
 	]);
 </script>
 
-{#each blocks as block}
-	{#if typeof block === 'string'}
-		{block}
-	{:else}
-		<ChatEmote name={block.name} url={block.url} />
-	{/if}
-{/each}
-<!-- TODO: {JSON.stringify(message.tags?.badges)} -->
+<span class="wrapper">
+	{#each blocks as block}
+		{#if typeof block === 'string'}
+			<span>{block}</span>
+			{:else if block[0] === TYPE.EMOTE}
+			<img src={block[1].url} alt={block[1].name} />
+			{:else if block[0] === TYPE.URL}
+			<a href={block[1]} target="_blank">{block[1]}</a>
+		{/if}
+	{/each}
+</span>
+
+<style>
+.wrapper > * {
+	margin-right: 0.5ch;
+}
+img {
+	max-height: 2.5rem;
+}
+</style>
+	<!-- TODO: {JSON.stringify(message.tags?.badges)} -->

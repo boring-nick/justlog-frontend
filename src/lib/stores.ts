@@ -9,7 +9,11 @@ export const thirdPartyGlobalEmotes = fetchOnce<Array<Emote>>(() => getGlobalEmo
 	data: []
 });
 
-export const serverBaseUrl = createLocalStorage('serverBaseUrl', 'https://justlog.kkx.one');
+export const serverBaseUrl = createLocalStorage('serverBaseUrl', defaultBaseUrl());
+
+export function defaultBaseUrl(): String {
+	return browser && window.location.protocol + '//' + window.location.host || 'https://localhost:8025';
+}
 
 type DataType<T> = { isLoading: boolean; error?: Error; data?: T };
 type HandlerType<T> = (value: { isLoading: boolean; error?: Error; data?: T }) => void;
